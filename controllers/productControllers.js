@@ -1,15 +1,14 @@
 var Product = require('../models/product');
 var User = require('../models/user');
-
+var FuzzySearch = require('fuzzy-search')
 const getProducts = async (type)  =>{
     var products;
     if(type){
-        products = await Product.find({type:type});
+        products = await Product.find({type:type})
     }
     else {
-        products = await Product.find();
+        products = await Product.find({})
     }
-    
     return products
 }
 
@@ -69,10 +68,21 @@ const addToOrder = async (id, userId) =>{
 }
 
 
+const search = async (searchItem) => {
+    console.log('search hit')
+    console.log(searchItem)
+    var products = await Product.find({});
+    const searcher = new FuzzySearch(products, ['title', 'type'], {
+        caseSensitive: false,
+    });
+    const result = searcher.search(searchItem);
+    return result;
+}
 module.exports = {
     getProducts,
     deleteFromCart,
     addToCart,
     addToOrder,
-    deleteFromOrder
+    deleteFromOrder,
+    search,
 }

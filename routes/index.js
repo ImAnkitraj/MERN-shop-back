@@ -2,19 +2,18 @@ var express = require("express");
 var router = express.Router();
 const bcrypt = require('bcryptjs');
 var User = require("../models/user");
-var authControllers = require('../controllers/authControllers')
+var authControllers = require('../controllers/authControllers');
+
 //========================================
 //Auth Routes
 //========================================
-   
+
 //sign up logic
 router.post("/register", async function (req,res) {
     // console.log(req)
     const email = req.body.email;
     const password = req.body.password;
-    // console.log(email,password)
     var result = await authControllers.register(email,password);
-    // console.log('res',result)
     res.send(result);
 });
 

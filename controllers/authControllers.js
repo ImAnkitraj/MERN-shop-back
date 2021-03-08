@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var User = require("../models/user");
 
-
 const login = async (email, password) => {
     if(email !== undefined && password !== undefined){
         console.log('valid')

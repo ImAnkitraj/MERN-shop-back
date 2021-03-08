@@ -7,7 +7,6 @@ router.post('/products',async function(req,res){
     console.log(req.body)
     var result = await productControllers.getProducts(req.body.type);
     res.send(result)
-
 })
 
 router.post('/cart/delete', async function(req,res){
@@ -29,5 +28,11 @@ router.post('/order/add', async function(req,res){
     var result = await productControllers.addToOrder(req.body.id, req.body.userId)
     res.send(result)
 })
+
+router.post('/search', async function(req, res){
+    var result = await productControllers.search(req.body.searchItem)
+    res.send(result);
+})
+
 
 module.exports = router
