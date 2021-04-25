@@ -6,8 +6,10 @@ var cors = require('cors')
 var indexroutes = require("./routes/index");
 var shoproutes = require("./routes/shop");
 var seed = require('./seed')
-
-mongoose.connect("mongodb://localhost/mernShop",{ useNewUrlParser: true,useUnifiedTopology: true  })
+/*mongodb+srv://database1:Alok@5118@cluster0.mtsal.mongodb.net/database1?retryWrites=true&w=majority*/
+mongoose.connect("mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/mernShop?retryWrites=true&w=majority",{ useNewUrlParser: true,useUnifiedTopology: true  })
+.then(()=>console.log('connected'))
+.catch(e=>console.log(e))
 
 // seed();
 app.use(bodyparser.urlencoded({ extended: true }));

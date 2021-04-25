@@ -1,15 +1,34 @@
 var Product = require('../models/product');
 var User = require('../models/user');
 var FuzzySearch = require('fuzzy-search')
-const getProducts = async (type)  =>{
+const getProducts = async (type, offset, limit)  =>{
+
+    console.log(type,offset, limit)
     var products;
     if(type){
         products = await Product.find({type:type})
+                                .limit(limit)
+                                .skip(offset)
     }
     else {
         products = await Product.find({})
+                                .limit(limit)
+                                .skip(offset)
     }
     return products
+}
+
+const getProductsCount = async (type)=>{
+
+    console.log('product count')
+    let count = 0;
+    if(type){
+        count = await Product.countDocuments({type})
+    }
+    else{
+        count = await Product.countDocuments();
+    }
+    return count;
 }
 
 const deleteFromCart = async (id,userId) => {
@@ -80,6 +99,7 @@ const search = async (searchItem) => {
 }
 module.exports = {
     getProducts,
+    getProductsCount,
     deleteFromCart,
     addToCart,
     addToOrder,

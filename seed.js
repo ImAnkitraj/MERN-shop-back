@@ -59,7 +59,6 @@ var dataProd = [
 ]
 
 const seed = () =>{
-
     Product.deleteMany()
     dataProd.map(prod=>{
         var newProduct = new Product(prod)

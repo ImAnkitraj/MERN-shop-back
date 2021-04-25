@@ -5,8 +5,15 @@ var Product = require('../models/product')
 
 router.post('/products',async function(req,res){
     console.log(req.body)
-    var result = await productControllers.getProducts(req.body.type);
+    var result = await productControllers.getProducts(req.body.type, req.body.offset, req.body.limit);
     res.send(result)
+})
+
+router.get('/products/count', async function(req, res){
+    console.log(req.query);
+    var result = await productControllers.getProductsCount(req.query.type);
+    console.log('count',result)
+    res.status(200).send((result).toString());
 })
 
 router.post('/cart/delete', async function(req,res){
