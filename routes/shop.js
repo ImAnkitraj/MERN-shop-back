@@ -32,7 +32,7 @@ router.post('/order/delete', async function(req,res){
     res.send(result);
 })
 router.post('/order/add', async function(req,res){
-    var result = await productControllers.addToOrder(req.body.id, req.body.userId)
+    var result = await productControllers.addToOrder(req.body.ids, req.body.userId)
     res.send(result)
 })
 

@@ -1,6 +1,7 @@
 var Product = require('../models/product');
 var User = require('../models/user');
-var FuzzySearch = require('fuzzy-search')
+var FuzzySearch = require('fuzzy-search');
+var mongoose = require("mongoose");
 const getProducts = async (type, offset, limit)  =>{
 
     console.log(type,offset, limit)
@@ -74,14 +75,15 @@ const deleteFromOrder = async (id,userId) => {
     return {...user._doc, password:null}
 }
 
-const addToOrder = async (id, userId) =>{
+const addToOrder = async (ids, userId) =>{
     var user = await User.findById(userId);
     // console.log(user)
-    var product = await Product.findById(id);
-    // console.log(product)
-    var newOrder = [...user.order, product._doc];
+    var products = await Product.find({'_id' : {
+        $in: [...ids.map(id=> mongoose.Types.ObjectId(id))]
+    }});
+    console.log(products)
+    var newOrder = [...user.order, ...products];
     user.order = newOrder;
-    // console.log(newCart)
     user.save();
     return {...user._doc, password:null};
 }
